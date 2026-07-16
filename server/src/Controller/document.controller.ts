@@ -12,7 +12,6 @@ export const uploadDocument = async (
     res: Response
 ): Promise<void> => {
     let contract: any = null;
-
     try {
         if (!req.file) {
             res.status(400).json({
@@ -21,9 +20,7 @@ export const uploadDocument = async (
             });
             return;
         }
-
         const file = req.file;
-
         // Step 1: Create Contract Record
         contract = await contractModel.create({
             fileName: path.basename(file.path),
@@ -37,10 +34,11 @@ export const uploadDocument = async (
 
         // Step 2: Parse PDF
         const parsedPdf = await PdfParser(file.path);
-
+        console.log("parsedPdf", parsedPdf)
         await contractModel.findByIdAndUpdate(contract._id, {
             status: "CHUNKING",
             pages: parsedPdf.metadata.pages,
+            extractedText: parsedPdf.text
         });
 
         // Step 3: Chunk

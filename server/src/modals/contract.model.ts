@@ -7,7 +7,7 @@ const ContractSchema = new Schema(
         filePath: String,
         mimeType: String,
         fileSize: Number,
-
+        extractedText: String,
         pages: Number,
         chunkCount: Number,
         vectorCount: Number,

@@ -12,6 +12,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/document", documentUpload)
+
 const PORT = process.env.PORT
 
 connectToMongodb()
