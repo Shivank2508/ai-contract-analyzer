@@ -20,7 +20,7 @@ export const ContractStateAnnotation = Annotation.Root({
     missingClauses: Annotation<any[]>(),
     riskScore: Annotation<number>(),
     summary: Annotation<string>(),
-    recommendations: Annotation<string[]>(),
+    recommendations: Annotation<any[]>(),
     errors: Annotation<string[]>()
 });
 
