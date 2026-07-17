@@ -3,6 +3,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import { useAuth } from './context/AuthContext'
+import { UploadPage } from './pages/UploadPage'
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth()
@@ -24,6 +25,14 @@ const AppRoutes = () => (
             element={
                 <ProtectedRoute>
                     <DashboardPage />
+                </ProtectedRoute>
+            }
+        />
+         <Route
+            path="/upload"
+            element={
+                <ProtectedRoute>
+                    <UploadPage />
                 </ProtectedRoute>
             }
         />
