@@ -1,4 +1,4 @@
-import { llmmModel } from "../../services/llm-model.service";
+import { llmmModel, parseJsonFromModel } from "../../services/llm-model.service";
 import { ContractState } from "../contract.state";
 import { extractionPrompt } from "../prompt/extraction.prompt";
 import { ExtractionSchema } from "../schema/extraction.schema";
@@ -7,11 +7,7 @@ export async function extractionNode(
     state: ContractState
 ): Promise<ContractState> {
     try {
-
-        const structuredLLM =
-            llmmModel.withStructuredOutput(ExtractionSchema);
-
-        const result = await structuredLLM.invoke([
+        const result = await llmmModel.invoke([
             {
                 role: "system",
                 content: extractionPrompt,
@@ -22,12 +18,12 @@ export async function extractionNode(
             },
         ]);
 
+        const parsed = parseJsonFromModel(result.content, ExtractionSchema);
+        const extractedInfo = parsed && typeof parsed === "object" ? parsed : {};
+
         return {
-
             ...state,
-            extractedInfo: result,
-
-
+            extractedInfo,
         };
 
     } catch (error) {

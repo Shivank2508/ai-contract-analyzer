@@ -1,0 +1,194 @@
+.dashboard-shell,
+.auth-page {
+  min-height: 100vh;
+  padding: 32px 20px;
+  background: linear-gradient(135deg, #f8fbff 0%, #eef4ff 100%);
+}
+
+.dashboard-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.subtle {
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.auth-page {
+  display: grid;
+  place-items: center;
+}
+
+.auth-card {
+  width: min(100%, 480px);
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 16px 48px rgba(15, 23, 42, 0.08);
+}
+
+.auth-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 8px;
+  color: #111827;
+  font-weight: 600;
+}
+
+.auth-form input {
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 1rem;
+}
+
+.auth-form button,
+.upload-card button,
+.secondary-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-form button,
+.upload-card button {
+  background: #2563eb;
+  color: white;
+}
+
+.secondary-btn {
+  background: #111827;
+  color: white;
+}
+
+.auth-error,
+.message {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.auth-link {
+  margin-top: 16px;
+  color: #4b5563;
+}
+
+.auth-link a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.upload-card {
+  background: #111827;
+  color: white;
+  padding: 16px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 280px;
+  margin-bottom: 16px;
+}
+
+.upload-card input {
+  color: white;
+}
+
+.contracts-section h2 {
+  margin-bottom: 14px;
+}
+
+.contract-list {
+  display: grid;
+  gap: 16px;
+}
+
+.contract-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.contract-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pill {
+  background: #ecfeff;
+  color: #0f766e;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.analysis-block {
+  display: grid;
+  gap: 10px;
+}
+
+.analysis-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 8px;
+}
+
+.summary-box {
+  margin-top: 8px;
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 12px;
+}
+
+.empty-state {
+  color: #6b7280;
+}
+
+.empty-state.small {
+  font-size: 0.95rem;
+}
+
+.loading-state {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  color: #4b5563;
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .upload-card {
+    width: 100%;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}

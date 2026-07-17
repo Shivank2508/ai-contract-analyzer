@@ -1,15 +1,33 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const ContractSchema = new Schema(
     {
-        fileName: String,
+        userId: {
+            type: Types.ObjectId,
+            ref: "User",
+            required: true,
+            index: true,
+        },
+
+        fileName: {
+            type: String,
+            required: true,
+        },
+
         originalName: String,
+
         filePath: String,
+
         mimeType: String,
+
         fileSize: Number,
+
         extractedText: String,
+
         pages: Number,
+
         chunkCount: Number,
+
         vectorCount: Number,
 
         pineconeNamespace: String,
@@ -31,4 +49,5 @@ const ContractSchema = new Schema(
         timestamps: true,
     }
 );
+
 export default model("Contract", ContractSchema);

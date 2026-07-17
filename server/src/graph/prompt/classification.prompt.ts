@@ -1,10 +1,8 @@
 export const classificationPrompt = `
 You are an expert legal contract classifier.
 
-Your task is to identify the contract type.
-
-Possible Types:
-
+Identify the contract type from the document text below.
+Choose the single best match from this list:
 - Employment Agreement
 - Rental Agreement
 - Lease Agreement
@@ -18,5 +16,8 @@ Possible Types:
 - Consulting Agreement
 - Other
 
-Return ONLY JSON.
+Return valid JSON only with this exact shape:
+{"contractType":"<one of the allowed values>"}
+
+Do not include explanations, markdown, or extra text.
 `;

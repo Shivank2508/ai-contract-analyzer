@@ -23,6 +23,7 @@ export const uploadDocument = async (
         const file = req.file;
         // Step 1: Create Contract Record
         contract = await contractModel.create({
+            userId: req.userId,
             fileName: path.basename(file.path),
             originalName: file.originalname,
             filePath: file.path,

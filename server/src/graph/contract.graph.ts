@@ -23,12 +23,12 @@ const graph = new StateGraph(ContractStateAnnotation)
     .addEdge("clause", "analyze_risk")
     .addNode("missingClause", missingClauseNode)
     .addEdge("analyze_risk", "missingClause")
-    .addNode("riskScoreCal",riskScoreNode)
+    .addNode("riskScoreCal", riskScoreNode)
     .addEdge("missingClause", "riskScoreCal")
-    .addNode("summaryNode",summaryNode)
-    .addEdge( "riskScoreCal","summaryNode")
-    .addNode("recommendationNode",recommendationNode)
-    .addEdge("summaryNode","recommendationNode")
+    .addNode("summaryNode", summaryNode)
+    .addEdge("riskScoreCal", "summaryNode")
+    .addNode("recommendationNode", recommendationNode)
+    .addEdge("summaryNode", "recommendationNode")
     .addEdge("recommendationNode", END);
 
 export const contractGraph = graph.compile();

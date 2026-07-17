@@ -3,10 +3,10 @@ import { ContractState } from "../contract.state";
 import { summaryPrompt } from "../prompt/summary.prompt.";
 
 export async function summaryNode(
-    state:ContractState
-):Promise<ContractState>{
+    state: ContractState
+): Promise<ContractState> {
     try {
-             const response = await llmmModel.invoke([
+        const response = await llmmModel.invoke([
 
             {
                 role: "system",
@@ -32,12 +32,12 @@ export async function summaryNode(
             }
 
         ]);
-        return{
+        return {
             ...state,
-             summary: response.content.toString()
+            summary: response.content.toString()
         }
     } catch (error) {
-         console.log( "Summary Generation Failed",error)
+        console.log("Summary Generation Failed", error)
 
         return {
 
@@ -55,4 +55,4 @@ export async function summaryNode(
 
     }
 
-    }
+}

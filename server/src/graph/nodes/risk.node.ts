@@ -1,14 +1,11 @@
-import { llmmModel } from "../../services/llm-model.service";
+import { llmmModel, parseJsonFromModel } from "../../services/llm-model.service";
 import { ContractState } from "../contract.state";
 import { riskPrompt } from "../prompt/risk.prompt";
 import { RiskListSchema } from "../schema/risk.schema";
 
 export async function riskNode(state: ContractState): Promise<ContractState> {
     try {
-        // Pass method: "jsonMode" to enforce clean JSON formatting from Groq
-        const structurellm = llmmModel.withStructuredOutput(RiskListSchema);
-
-        const result = await structurellm.invoke([
+        const result = await llmmModel.invoke([
             { role: "system", content: riskPrompt },
             {
                 role: "human",
@@ -16,10 +13,12 @@ export async function riskNode(state: ContractState): Promise<ContractState> {
             }
         ]);
 
+        const parsed = parseJsonFromModel(result.content, RiskListSchema);
+        const risks = Array.isArray(parsed?.risks) ? parsed.risks : [];
+
         return {
             ...state,
-            // Extract the array from the root object wrapper
-            risk: result?.risks || []
+            risk: risks
         };
     } catch (error) {
         console.error("Risk Analysis Failed", error);

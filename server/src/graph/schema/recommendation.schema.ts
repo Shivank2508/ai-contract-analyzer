@@ -1,8 +1,8 @@
 import z from "zod";
 
-const RecommendationSchema  = z.object({
+const RecommendationSchema = z.object({
     title: z.string(),
-      priority: z.enum([
+    priority: z.enum([
         "High",
         "Medium",
         "Low"
@@ -12,6 +12,6 @@ const RecommendationSchema  = z.object({
 });
 
 // Changed from a raw array to a wrapped object
-export const RecommendationListSchema  = z.object({
+export const RecommendationListSchema = z.object({
     risks: z.array(RecommendationSchema)
 });
