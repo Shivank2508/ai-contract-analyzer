@@ -1,10 +1,9 @@
 import api from './axiosInstance'
 
 export const uploadContract = async (file) => {
-    const formData = new FormData()
-    formData.append('document', file)
+console.log(file)
 
-    const { data } = await api.post('/api/document/upload', formData, {
+    const { data } = await api.post('/api/document/upload', file, {
         headers: {
             'Content-Type': 'multipart/form-data',
         },

@@ -1,9 +1,9 @@
-import { deepSeekEmbeddings } from "./llm-model.service";
+import { geminiEmbeddings } from "./llm-model.service";
 import { Chunk } from "../types/chunk.type";
 
 export async function embeddingCunks(chunks: Chunk[]) {
     const texts = chunks.map((chunk) => chunk.text);
-    const vectors = await deepSeekEmbeddings.embedDocuments(texts);
+    const vectors = await geminiEmbeddings.embedDocuments(texts);
 
     return chunks.map((chunk, index) => ({
         id: chunk.id,
@@ -12,3 +12,4 @@ export async function embeddingCunks(chunks: Chunk[]) {
         metadata: chunk.metadata
     }));
 }
+

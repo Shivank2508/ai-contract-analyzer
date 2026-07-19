@@ -13,6 +13,7 @@ class VectorStoreService {
         embeddedChunks: EmbeddedChunk[],
         namespace: string
     ) {
+        
         const namespaceIndex = index.namespace(namespace);
 
         await namespaceIndex.upsert({

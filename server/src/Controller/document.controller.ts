@@ -35,7 +35,7 @@ export const uploadDocument = async (
 
         // Step 2: Parse PDF
         const parsedPdf = await PdfParser(file.path);
-        console.log("parsedPdf", parsedPdf)
+
         await contractModel.findByIdAndUpdate(contract._id, {
             status: "CHUNKING",
             pages: parsedPdf.metadata.pages,

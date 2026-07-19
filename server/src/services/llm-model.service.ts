@@ -1,4 +1,5 @@
 import { ChatOpenAI, OpenAIEmbeddings } from "@langchain/openai";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { z } from "zod";
 
 const deepSeekApiKey = process.env.DEEPSEEK_API_KEY || process.env.OPENAI_API_KEY;
@@ -222,3 +223,10 @@ export const deepSeekEmbeddings = new OpenAIEmbeddings({
         baseURL: "https://api.deepseek.com/v1",
     },
 });
+
+
+
+export const geminiEmbeddings = new GoogleGenerativeAIEmbeddings({
+    model: "gemini-embedding-001",
+    apiKey: process.env.GEMINI_API_KEY
+})

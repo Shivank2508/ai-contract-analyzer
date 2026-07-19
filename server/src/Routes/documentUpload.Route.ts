@@ -1,7 +1,7 @@
 import express from "express";
-import { uploadDocument } from "../Controller/document.controller";
+import { uploadDocument } from "../controller/document.controller";
 import uploadFile from "../middleware/document.middleware";
-import { analyzeDocument } from "../Controller/analyze.controller";
+import { analyzeDocument } from "../controller/analyze.controller";
 import { protect } from "../middleware/auth.middleware";
 
 const route = express.Router()

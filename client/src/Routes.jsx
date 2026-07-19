@@ -4,6 +4,7 @@ import SignupPage from './pages/SignupPage'
 import DashboardPage from './pages/DashboardPage'
 import { useAuth } from './context/AuthContext'
 import { UploadPage } from './pages/UploadPage'
+import ContractsPage from './pages/ContractsPage'
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth()
@@ -33,6 +34,14 @@ const AppRoutes = () => (
             element={
                 <ProtectedRoute>
                     <UploadPage />
+                </ProtectedRoute>
+            }
+        />
+         <Route
+            path="/contracts"
+            element={
+                <ProtectedRoute>
+                    <ContractsPage />
                 </ProtectedRoute>
             }
         />
