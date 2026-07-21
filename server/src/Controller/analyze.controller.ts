@@ -15,7 +15,11 @@ export const analyzeDocument = async (req: Request, res: Response) => {
         }
 
         const contract = await contractModel.findById(contractId);
-
+        if (!contract) {
+            return res.status(404).json({
+                message: "Contract not found",
+            });
+        }
         const existingAnalysis = await analyzeModel.findOne({ contractId }).lean();
         if (existingAnalysis) {
             return res.json({
@@ -34,60 +38,16 @@ export const analyzeDocument = async (req: Request, res: Response) => {
             extractedInfo: {},
             clauses: [] as any[],          // Cast empty arrays to match your Graph state definitions
             risk: [] as any[],             // Replace 'any' with your actual Clause/Risk types if available
-            missingClauses: [] as string[],
+            missingClauses: [] as any[],
             riskScore: 0,
             summary: "",
-            recommendations: [] as string[],
+            recommendations: [] as any[],
             errors: [] as string[]
         };
 
         const result = await contractGraph.invoke(state);
-
-        const normalizeArrayField = (value: unknown): string[] => {
-            if (Array.isArray(value)) {
-                return value.map((item) => String(item));
-            }
-
-            if (typeof value === "string") {
-                const trimmed = value.trim();
-                if (!trimmed) {
-                    return [];
-                }
-
-                try {
-                    const parsed = JSON.parse(trimmed);
-                    if (Array.isArray(parsed)) {
-                        return parsed.map((item) => String(item));
-                    }
-                } catch {
-                    // fallback for values like "[\n { ... } ]" or other literal-like strings
-                }
-
-                const arrayLikeMatch = trimmed.match(/^\[([\s\S]*)\]$/);
-                if (arrayLikeMatch) {
-                    const inner = arrayLikeMatch[1];
-                    const candidateItems = inner
-                        .split(/\n|\r/)
-                        .map((part) => part.trim())
-                        .filter(Boolean)
-                        .map((part) => part.replace(/^\{/, "").replace(/\}$/, "").trim());
-
-                    if (candidateItems.length) {
-                        return candidateItems.map((item) => item.replace(/,$/, ""));
-                    }
-                }
-
-                return [trimmed];
-            }
-
-            return [];
-        };
-
-        const normalizedMissingClauses = normalizeArrayField(result.missingClauses);
-        const normalizedRecommendations = normalizeArrayField(result.recommendations);
-
         const analyzedContract = await analyzeModel.create({
-
+            userId: contract.userId,
             contractId: result.contractId,
             text: result.text,
             metadata: result.metadata,
@@ -95,11 +55,15 @@ export const analyzeDocument = async (req: Request, res: Response) => {
             extractedInfo: result.extractedInfo,
             clauses: result.clauses,
             risk: result.risk,
-            missingClauses: normalizedMissingClauses,
+            missingClauses: result.missingClauses,
             riskScore: result.riskScore,
             summary: result.summary,
-            recommendations: normalizedRecommendations,
+            recommendations: result.recommendations,
             errors: result.errors,
+        });
+        await contractModel.findByIdAndUpdate(contractId, {
+            isAnalyzed: true,
+            analyzedAt: new Date(),
         });
         return res.json({
             message: "ok",

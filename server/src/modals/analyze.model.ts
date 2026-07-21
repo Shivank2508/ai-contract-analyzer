@@ -1,7 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 const AnalyzeContractSchema = new Schema(
     {
+        userId: {
+            type: Types.ObjectId,
+            ref: "User",
+            required: true,
+            index: true,
+        },
         contractId: {
             type: String,
             required: true,
@@ -38,10 +44,9 @@ const AnalyzeContractSchema = new Schema(
 
         missingClauses: [
             {
-                type: String,
+                type: Schema.Types.Mixed,
             },
         ],
-
         riskScore: {
             type: Number,
             default: 0,
@@ -53,7 +58,7 @@ const AnalyzeContractSchema = new Schema(
 
         recommendations: [
             {
-                type: String,
+                type: Schema.Types.Mixed,
             },
         ],
 

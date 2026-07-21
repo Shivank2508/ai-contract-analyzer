@@ -5,6 +5,7 @@ import DashboardPage from './pages/DashboardPage'
 import { useAuth } from './context/AuthContext'
 import { UploadPage } from './pages/UploadPage'
 import ContractsPage from './pages/ContractsPage'
+import AnalyzeContractPage from './pages/analyzeContractPage'
 
 const ProtectedRoute = ({ children }) => {
     const { user, loading } = useAuth()
@@ -29,7 +30,7 @@ const AppRoutes = () => (
                 </ProtectedRoute>
             }
         />
-         <Route
+        <Route
             path="/upload"
             element={
                 <ProtectedRoute>
@@ -37,11 +38,19 @@ const AppRoutes = () => (
                 </ProtectedRoute>
             }
         />
-         <Route
+        <Route
             path="/contracts"
             element={
                 <ProtectedRoute>
                     <ContractsPage />
+                </ProtectedRoute>
+            }
+        />
+        <Route
+            path="/contracts/:contract_id"
+            element={
+                <ProtectedRoute>
+                    <AnalyzeContractPage />
                 </ProtectedRoute>
             }
         />

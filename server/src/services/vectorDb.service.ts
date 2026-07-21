@@ -13,7 +13,7 @@ class VectorStoreService {
         embeddedChunks: EmbeddedChunk[],
         namespace: string
     ) {
-        
+
         const namespaceIndex = index.namespace(namespace);
 
         await namespaceIndex.upsert({
@@ -28,8 +28,12 @@ class VectorStoreService {
         });
     }
 
-    async searchDocuments(queryEmbedding: number[]) {
-        const results = await index.query({
+    async searchDocuments(
+        queryEmbedding: number[],
+        namespace: string,
+    ) {
+        const namespaceIndex = index.namespace(namespace)
+        const results = await namespaceIndex.query({
             vector: queryEmbedding,
             topK: 5,
             includeMetadata: true,

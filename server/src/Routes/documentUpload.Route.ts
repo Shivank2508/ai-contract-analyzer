@@ -1,12 +1,30 @@
 import express from "express";
-import { uploadDocument } from "../controller/document.controller";
+
 import uploadFile from "../middleware/document.middleware";
-import { analyzeDocument } from "../controller/analyze.controller";
+
 import { protect } from "../middleware/auth.middleware";
+import { getContracts } from "../Controller/getContracts";
+import { getDashboard } from "../Controller/dashboard.controller";
+import { chatController } from "../Controller/chat.controller";
+import { analyzeDocument } from "../Controller/analyze.controller";
+import { uploadDocument } from "../Controller/document.controller";
 
-const route = express.Router()
+const route = express.Router();
 
-route.post("/upload", protect, uploadFile.single("document"), uploadDocument)
-route.get("/analyze/:id", protect, analyzeDocument)
+route.get("/dashboard", protect, getDashboard);
 
-export default route
+route.post(
+    "/upload",
+    protect,
+    uploadFile.single("document"),
+    uploadDocument
+);
+
+route.get("/analyze/:id", protect, analyzeDocument);
+
+route.get("/contracts", protect, getContracts);
+
+// Chat with a contract
+route.post("/contracts/:contract_id/chat", protect, chatController);
+
+export default route;

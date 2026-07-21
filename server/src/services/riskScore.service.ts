@@ -1,24 +1,30 @@
 export function calculateRiskScore(
-     risks: any[],
+    risks: any[],
     missingClauses: any[]
-):number{
-    const SEVERITY_WEIGHTS: Record<string, number> = { high: 15, medium: 8, low: 3 };
-    const IMPORTANCE_WEIGHTS: Record<string, number> = { critical: 10, important: 5, optional: 2 };
+): number {
+    const SEVERITY_WEIGHTS: Record<string, number> = {
+        high: 15,
+        medium: 8,
+        low: 3,
+    };
 
-    let totalPenalty = 0;
+    const IMPORTANCE_WEIGHTS: Record<string, number> = {
+        critical: 10,
+        important: 5,
+        optional: 2,
+    };
 
-    // 3. Process risks safely with case-insensitivity
+    let score = 0;
+
     for (const risk of risks) {
-        const severityKey = (risk.severity || '').toLowerCase();
-        totalPenalty += SEVERITY_WEIGHTS[severityKey] || 0;
+        const severity = String(risk.severity ?? "").toLowerCase();
+        score += SEVERITY_WEIGHTS[severity] ?? 0;
     }
 
-    // 4. Process missing clauses safely with case-insensitivity
     for (const clause of missingClauses) {
-        const importanceKey = (clause.importance || '').toLowerCase();
-        totalPenalty += IMPORTANCE_WEIGHTS[importanceKey] || 0;
+        const importance = String(clause.importance ?? "").toLowerCase();
+        score += IMPORTANCE_WEIGHTS[importance] ?? 0;
     }
 
-    // 5. Calculate final score out of 100
-    return Math.max(0, 100 - totalPenalty);
+    return Math.min(100, score);
 }

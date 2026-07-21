@@ -13,3 +13,8 @@ export async function embeddingCunks(chunks: Chunk[]) {
     }));
 }
 
+
+
+export async function embeddedQuestion(question: string) {
+    return await geminiEmbeddings.embedQuery(question)
+}

@@ -45,9 +45,9 @@ const LoginPage = () => {
                             </div>
 
                             <div>
-                                <h2 className="text-2xl font-semibold">Clausal</h2>
+                                <h2 className="text-2xl font-semibold">Contralytix</h2>
                                 <p className="text-xs tracking-[4px] uppercase text-gray-400">
-                                    AI Contract Intelligence
+                                    AI That Understands Contracts
                                 </p>
                             </div>
                         </div>
@@ -112,9 +112,9 @@ const LoginPage = () => {
                 </div>
 
                 {/* Right Side */}
-                <div className="flex items-center justify-center p-8">
+                <div className="flex items-center justify-center p-8 ">
 
-                    <div className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-10 shadow-2xl backdrop-blur-2xl">
+                    <div className="w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-10 shadow-2xl backdrop-blur-2xl">
 
                         <p className="mb-2 text-sm uppercase tracking-[4px] text-gray-400">
                             Sign In
@@ -140,15 +140,36 @@ const LoginPage = () => {
                             <span className="px-3 text-sm text-gray-500">OR</span>
                             <div className="h-px flex-1 bg-white/10" />
                         </div>
+                        <div className="mt-6 rounded-xl border border-amber-500/20 bg-amber-500/10 p-4">
+                            <p className="text-sm font-medium text-amber-300">
+                                Don't want to create an account?
+                            </p>
 
-                        <button className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-[#171A29] py-3 transition hover:bg-[#202338]">
+                            <p className="mt-2 text-sm text-gray-300">
+                                Sign in with the demo credentials below:
+                            </p>
+
+                            <div className="mt-3 space-y-2 rounded-lg bg-black/20 p-3 text-sm">
+                                <p>
+                                    <span className="font-semibold text-white">Email:</span>{" "}
+                                    <span className="text-sky-300">johndoe@example.com</span>
+                                </p>
+
+                                <p>
+                                    <span className="font-semibold text-white">Password:</span>{" "}
+                                    <span className="text-sky-300">SecurePassword123</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* <button className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-[#171A29] py-3 transition hover:bg-[#202338]">
                             <img
                                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                                 className="h-5"
                                 alt=""
                             />
                             Continue with Google
-                        </button>
+                        </button> */}
 
                         <p className="mt-8 text-center text-gray-400">
                             Don't have an account?{" "}

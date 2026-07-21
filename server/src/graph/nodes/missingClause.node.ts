@@ -23,7 +23,6 @@ export async function missingClauseNode(
 
         const parsed = parseJsonFromModel(result.content, MissingClauseListSchema);
         const missingClauses = Array.isArray(parsed?.risks) ? parsed.risks : [];
-
         return {
             ...state,
             missingClauses

@@ -44,6 +44,18 @@ const ContractSchema = new Schema(
             ],
             default: "PROCESSING",
         },
+
+        // Analysis status
+        isAnalyzed: {
+            type: Boolean,
+            default: false,
+            index: true,
+        },
+
+        analyzedAt: {
+            type: Date,
+            default: null,
+        },
     },
     {
         timestamps: true,

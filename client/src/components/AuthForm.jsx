@@ -3,8 +3,8 @@ import { useState } from "react";
 const AuthForm = ({ mode, onSubmit, loading, error }) => {
     const [formData, setFormData] = useState({
         name: "",
-        email: "johndoe@example.com",
-        password: "SecurePassword123"
+        email: "",
+        password: ""
     });
 
     const handleChange = (event) => {
@@ -95,7 +95,7 @@ const AuthForm = ({ mode, onSubmit, loading, error }) => {
             <button
                 type="submit"
                 disabled={loading}
-                className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-400 px-4 py-3 text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-400 px-4 py-3 text-lg font-semibold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/30 disabled:cursor-not-allowed disabled:opacity-60 cursor-pointer"
             >
                 {loading ? (
                     <div className="flex items-center gap-3">
