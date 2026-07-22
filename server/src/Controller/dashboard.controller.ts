@@ -9,13 +9,6 @@ export const getDashboard = async (
 ): Promise<void> => {
     try {
         const userId = req.userId;
-
-if (!userId) {
-  return res.status(401).json({
-    success: false,
-    message: "Unauthorized",
-  });
-}
         const user = await userModel.findById(userId)
         // Total uploaded contracts
         const totalContracts = await contractModel.countDocuments({
