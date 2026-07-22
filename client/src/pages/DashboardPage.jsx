@@ -11,6 +11,7 @@ export default function DashboardPage() {
     const [dashboard, setDashboard] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+
     const navigate = useNavigate();
     const { logout } = useAuth();
 
@@ -33,19 +34,20 @@ export default function DashboardPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-[#0F172A] text-white flex">
+            <div className="min-h-screen bg-[#0F172A] flex text-white">
                 <Sidebar />
 
-                <div className="flex-1 flex items-center justify-center">
+                <div className="flex-1 ml-64 flex items-center justify-center">
                     <div className="flex flex-col items-center gap-4">
-                        {/* Spinner */}
-                        <div className="w-12 h-12 border-4 border-slate-600 border-t-blue-500 rounded-full animate-spin"></div>
+                        <div className="h-10 w-10 rounded-full border-4 border-slate-600 border-t-violet-500 animate-spin" />
 
-                        {/* Loading Text */}
                         <div className="text-center">
-                            <h2 className="text-xl font-semibold">Loading Dashboard</h2>
-                            <p className="text-slate-400 text-sm mt-1">
-                                Fetching your latest contract insights...
+                            <h2 className="text-lg font-semibold">
+                                Loading Dashboard
+                            </h2>
+
+                            <p className="text-sm text-slate-400 mt-1">
+                                Fetching contract insights...
                             </p>
                         </div>
                     </div>
@@ -63,90 +65,108 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="min-h-screen bg-[#0F172A] text-white">
+        <div className="min-h-screen bg-[#0F172A] text-white overflow-hidden">
             <div className="flex">
                 <Sidebar />
 
-                <main className="flex-1 ml-64 p-8">
+                <main className="flex-1 ml-64 h-screen overflow-y-auto px-6 py-5">
+
                     {/* Header */}
-                    <div className="flex items-center justify-between mb-8">
+
+                    <div className="flex items-start justify-between mb-6">
+
                         <div>
-                            <p className="uppercase tracking-[5px] text-gray-400 text-xs">
+                            <p className="uppercase tracking-[4px] text-[10px] text-slate-500">
                                 Thursday • Jul 16, 2026
                             </p>
 
-                            <h1 className="text-5xl font-bold mt-3">
-                                Good morning, {dashboard.user.name}
+                            <h1 className="text-3xl font-bold mt-2">
+                                Good Morning,
+                                <span className="text-violet-400">
+                                    {" "}
+                                    {dashboard?.user?.name}
+                                </span>
                             </h1>
 
-                            <p className="text-gray-400 mt-3">
+                            <p className="text-sm text-slate-400 mt-2 max-w-2xl leading-6">
                                 You have{" "}
-                                <span className="text-white font-semibold">
+                                <span className="font-semibold text-white">
                                     3 contracts
                                 </span>{" "}
                                 pending review and{" "}
-                                <span className="text-red-400 font-semibold">
+                                <span className="font-semibold text-red-400">
                                     2 high-risk findings
                                 </span>{" "}
-                                to approve.
+                                requiring your attention.
                             </p>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                            <button
-                                onClick={() => {
-                                    logout();
-                                    navigate("/login");
-                                }}
-                                className="flex items-center gap-2 rounded-xl bg-violet-600 px-5 py-3 font-medium transition hover:bg-violet-700 cursor-pointer"
-                            >
-
-                                Logout  <i className="bi bi-box-arrow-right text-xl"></i>
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => {
+                                logout();
+                                navigate("/login");
+                            }}
+                            className="flex items-center gap-2 rounded-xl bg-violet-600 hover:bg-violet-700 transition-all px-4 py-2.5 text-sm font-medium shadow-lg cursor-pointer"
+                        >
+                            Logout
+                            <i className="bi bi-box-arrow-right text-lg"></i>
+                        </button>
 
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-4 gap-6">
+
+                    <div className="grid grid-cols-4 gap-4">
+
                         <StatsCard
                             title="Total Contracts"
                             value={dashboard?.stats?.totalContracts ?? 0}
                             subtitle="Uploaded"
+                            icon="bi bi-file-earmark-text"
                         />
 
                         <StatsCard
-                            title="Not Analyzed"
+                            title="Pending"
                             value={dashboard?.stats?.pendingAnalysis ?? 0}
-                            subtitle="Pending"
+                            subtitle="Awaiting AI"
+                            icon="bi bi-clock-history"
                         />
 
                         <StatsCard
                             title="High Risk"
                             value={dashboard?.stats?.highRisk ?? 0}
                             subtitle="Need Review"
+                            icon="bi bi-exclamation-triangle"
                         />
 
                         <StatsCard
                             title="Hours Saved"
                             value={dashboard?.stats?.hoursSaved ?? 0}
-                            subtitle="vs Manual Review"
+                            subtitle="vs Manual"
+                            icon="bi bi-lightning-charge"
                         />
+
                     </div>
 
-                    {/* Bottom Section */}
-                    <div className="grid grid-cols-3 gap-6 mt-8">
+                    {/* Bottom */}
+
+                    <div className="grid grid-cols-3 gap-4 mt-5">
+
                         <div className="col-span-2">
+
                             <DigestCard
                                 contracts={dashboard?.recentContracts || []}
                                 findings={dashboard?.recentFindings || []}
                             />
+
                         </div>
 
                         <RiskDistribution
                             data={dashboard?.riskDistribution || []}
                         />
+
                     </div>
+
                 </main>
             </div>
         </div>
