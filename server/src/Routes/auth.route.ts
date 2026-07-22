@@ -1,5 +1,5 @@
 import express from "express"
-import { loginApi, signupController } from "../controller/auth.controller"
+import { loginApi, signupController } from "../Controller/auth.controller"
 const route = express.Router()
 route.post("/signup", signupController)
 route.post("/login", loginApi)
