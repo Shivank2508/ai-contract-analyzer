@@ -36,7 +36,7 @@ if (!contract.pineconeNamespace) {
         // Search similar chunks
         const matches = await vectorStoreService.searchDocuments(
             questionEmbedding,
-            contract?.pineconeNamespace
+            contract.pineconeNamespace
         );
 
         if (!matches || matches.length === 0) {
