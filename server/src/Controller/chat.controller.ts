@@ -24,7 +24,12 @@ export const chatController = async (req: Request, res: Response) => {
                 message: "Contract not found",
             });
         }
-
+if (!contract.pineconeNamespace) {
+    return res.status(400).json({
+        success: false,
+        message: "Pinecone namespace missing",
+    });
+}
         // Create embedding for user's question
         const questionEmbedding = await embeddedQuestion(question);
 
