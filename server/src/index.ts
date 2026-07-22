@@ -11,11 +11,14 @@ const app = express();
 
 // 🟢 ADDED: Apply CORS middleware BEFORE your routes
 app.use(
-    cors({
-        origin: "http://localhost:5173", // Replace with your exact React URL
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    })
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://contralytix.netlify.app",
+    ],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    credentials: true,
+  })
 );
 
 app.use(express.json());
